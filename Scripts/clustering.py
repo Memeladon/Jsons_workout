@@ -6,9 +6,20 @@ from sklearn.cluster import KMeans
 class Clustering:
     def __init__(self, info):
         self.data = info
-        print(self.data)
 
     def partitioning_into_clusters(self):
+        numeric_data = np.zeros((len(self.data), len(self.data[0])))
+
+        kmeans = KMeans(n_clusters=3)
+        kmeans.fit(numeric_data)
+        labels = kmeans.labels_
+
+        plt.scatter(numeric_data[:, 0], numeric_data[:, 1], c=labels)
+        plt.xlabel('Feature 1')
+        plt.ylabel('Feature 2')
+        plt.show()
+
+        """
         numeric_data = np.array([[r['Aborted_clients'], r['Latency']] for r in self.data])
         kmeans = KMeans(n_clusters=3)
         kmeans.fit(numeric_data)
@@ -22,3 +33,4 @@ class Clustering:
             plt.ylabel('Y')
             plt.title('Cluster ' + str(i))
             plt.show()
+        """
