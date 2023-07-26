@@ -10,7 +10,14 @@ class Clustering:
     def partitioning_into_clusters(self):
         numeric_data = np.zeros((len(self.data), len(self.data[0])))
 
-        kmeans = KMeans(n_clusters=3)
+        for i, item in enumerate(self.data):
+            for j, key in enumerate(item):
+                try:
+                    numeric_data[i][j] = float(item[key])
+                except ValueError:
+                    continue
+
+        kmeans = KMeans(n_clusters=5)
         kmeans.fit(numeric_data)
         labels = kmeans.labels_
 
